@@ -36,6 +36,7 @@
 .project
 mvnw
 mvnw.cmd
+/shareposts3/src/main/resources/database.properties
 
 
 
