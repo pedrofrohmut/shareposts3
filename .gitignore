@@ -1,4 +1,3 @@
-/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -23,3 +22,20 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+#### CUSTOM - ECLIPSE ####
+
+# FOLDERS #
+.mvn
+.settings
+/bin/
+/target/
+
+# FILES #
+.classpath
+.project
+mvnw
+mvnw.cmd
+
+
+

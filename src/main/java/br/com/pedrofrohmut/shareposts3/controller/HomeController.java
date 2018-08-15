@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
-public class PageController
+public class HomeController
 {
-    @GetMapping(RequestMappings.PAGE_INDEX)
+    @GetMapping(RequestMappings.HOME_INDEX)
     public String index()
     {
         log.info(">>> INDEX METHOD CALLED!");
-        return ViewNames.PAGE_INDEX;
+        return ViewNames.HOME_INDEX;
     }
 
-    @GetMapping(RequestMappings.PAGE_ABOUT)
+    @GetMapping(RequestMappings.HOME_ABOUT)
     public String about()
     {
         log.info(">>> INDEX METHOD CALLED!");
-        return ViewNames.PAGE_ABOUT;
+        return ViewNames.HOME_ABOUT;
     }
 }
