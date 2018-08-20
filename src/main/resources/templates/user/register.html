@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head :: head"/>
+</head>
+<body>
+<th:block th:include="fragments/navbar :: navbar"/>
+
+<div class="container">
+	<div class="row">
+	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+	        <h2 class="text-center mb-2">Join Us</h2>
+	        <p class="text-center my-5">Please fill up this form to register as a user and be a part of our community</p>
+	
+	        <form action="/user/register" th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_REGISTER}__}" method="POST">
+	            <div class="form-group my-4">
+	                <label class="required sr-only">Name</label>
+	                <input type="text" name="name" class="form-control" placeholder="User Name (required)">
+	                <div class="invalid-feedback"></div>
+	            </div>
+	
+	            <div class="form-group my-4">
+	                <label class="required sr-only">E-mail</label>
+	                <input type="email" name="email" class="form-control" placeholder="E-mail (required)">
+	                <div class="invalid-feedback"></div>
+	            </div>
+	
+	            <div class="form-group my-4">
+	                <label class="required sr-only">Password</label>
+	                <input type="password" name="password" class="form-control" placeholder="Password (required)">
+	                <div class="invalid-feedback"></div>
+	            </div>
+	
+	            <div class="form-group mb-5 mt-4">
+	                <label class="required sr-only">Confirm Password</label>
+	                <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password (required)">
+	                <div class="invalid-feedback"></div>
+	            </div>
+	
+	            <div class="row">                
+	                <div class="col-md-6 col-sm-12">                    
+	                    <div class="form-check mb-2">
+	                        <input type="checkbox" class="form-check-input">
+	                        <label for="form-check-label">
+	                            Agree to <strong>terms and conditions</strong>
+	                        </label>
+	                    </div>                    
+	                </div>
+	
+	                <div class="col-md-6 col-sm-12 float-md-left">
+	                    <button type="submit" class="btn btn-primary btn-block">
+	                        <i class="fa fa-paper-plane" aria-hidden="true"></i> Register
+	                    </button>
+	                </div>
+	            </div>            
+	        </form>
+	    </div>
+	</div>
+</div>
+
+<th:block th:include="fragments/footer :: footer"/>
+</body>
+</html>

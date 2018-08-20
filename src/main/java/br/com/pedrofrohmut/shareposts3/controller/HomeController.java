@@ -20,7 +20,7 @@ public class HomeController
     @GetMapping(RequestMappings.HOME_ABOUT)
     public String about()
     {
-        log.info(">>> INDEX METHOD CALLED!");
+        log.info(">>> ABOUT METHOD CALLED!");
         return ViewNames.HOME_ABOUT;
     }
 }
