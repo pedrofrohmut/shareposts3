@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head :: head"/>
+</head>
+<body>
+<th:block th:include="fragments/navbar :: navbar"/>
+
+<div class="container">
+	<div class="row">
+	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+            <div class="alert alert-success" th:text="${message}" th:if="${not #strings.isEmpty(message)}"></div>
+
+	        <h2 class="text-center mb-2">Join Us</h2>
+	        <p class="text-center my-5">Please fill up this form to register as a user and be a part of
+				our community</p>
+	
+	        <form action="#"
+                  th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_REGISTER}__}"
+                  th:object="${user}"
+                  method="POST">
+
+                <!-- Global Errors -->
+                <!--<div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">-->
+                    <!--<p th:each="err : ${#fields.errors('global')}" th:text="${err}"-->
+                          <!--class="text-danger">Input is incorrect</p>-->
+                <!--</div>-->
+
+                <!-- Name -->
+	            <div class="form-group my-4">
+	                <input type="text" class="form-control" th:field="*{name}"
+                           placeholder="User Name (required)"
+                           th:classappend="${#fields.hasErrors('name')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}">name error message</div>
+	            </div>
+
+                <!-- E-mail -->
+	            <div class="form-group my-4">
+                    <input type="text" class="form-control" th:field="*{email}"
+                           placeholder="E-mail (required)"
+                           th:classappend="${#fields.hasErrors('email')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}">name error message</div>
+	            </div>
+
+                <!-- Confirm E-mail -->
+				<div class="form-group my-4">
+					<input type="text" class="form-control" th:field="*{confirmEmail}"
+						   placeholder="Confirm E-mail (required)"
+                           th:classappend="${#fields.hasErrors('confirmEmail')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('confirmEmail')}"
+                         th:errors="*{confirmEmail}">name error message</div>
+
+                    <div th:if="${#fields.hasErrors('global')}">
+                        <div th:each="err : ${#fields.errors('global')}" th:text="${err}"
+                             th:if="${#strings.containsIgnoreCase(err, 'e-mail')}" class="error-message"/>
+                    </div>
+				</div>
+
+                <!-- Password -->
+	            <div class="form-group my-4">
+                    <input type="password" class="form-control" th:field="*{password}"
+                           placeholder="Password (required)"
+                           th:classappend="${#fields.hasErrors('password')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}">name error message</div>
+	            </div>
+
+                <!-- Confirm Password -->
+	            <div class="form-group mb-5 mt-4">
+                    <input type="password" class="form-control" name="confirmPassword"
+                           placeholder="Confirm Password (required)"
+                           th:classappend="${#fields.hasErrors('confirmPassword')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('confirmPassword')}"
+                         th:errors="*{confirmPassword}">name error message</div>
+
+                    <div th:if="${#fields.hasErrors('global')}">
+                        <div th:each="err : ${#fields.errors('global')}" th:text="${err}"
+                             th:if="${#strings.containsIgnoreCase(err, 'password')}" class="error-message"/>
+                    </div>
+	            </div>
+	
+	            <div class="row">                
+	                <div class="col-md-6 col-sm-12">                    
+	                    <div class="form-check mb-2">
+	                        <label>
+	                        	<input type="checkbox" class="form-check-input">
+	                            Agree to <strong>terms and conditions</strong>
+	                        </label>
+	                    </div>                    
+	                </div>
+	
+	                <div class="col-md-6 col-sm-12 float-md-left">
+	                    <button type="submit" class="btn btn-primary btn-block">
+	                        <i class="fa fa-paper-plane" aria-hidden="true"></i> Register
+	                    </button>
+	                </div>
+	            </div>            
+	        </form>
+	    </div>
+	</div>
+</div>
+
+<th:block th:include="fragments/footer :: footer"/>
+</body>
+</html>
