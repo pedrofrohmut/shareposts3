@@ -1,18 +1,30 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+=======
+import br.com.pedrofrohmut.shareposts3.model.User;
+import br.com.pedrofrohmut.shareposts3.service.UserService;
+import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
+import br.com.pedrofrohmut.shareposts3.util.ViewNames;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 6d021d41efb477a267fdd500b7e847fcd2c79553
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+<<<<<<< HEAD
 import br.com.pedrofrohmut.shareposts3.service.UserService;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 
+=======
+>>>>>>> 6d021d41efb477a267fdd500b7e847fcd2c79553
 @Slf4j
 @Controller
 public class UserController 

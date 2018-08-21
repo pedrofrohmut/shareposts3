@@ -36,7 +36,15 @@
 .project
 mvnw
 mvnw.cmd
+<<<<<<< HEAD
 /shareposts3/src/main/resources/database.properties
 
 
 
+=======
+/src/main/resources/database.properties
+
+
+
+src/main/resources/database.properties
+>>>>>>> 6d021d41efb477a267fdd500b7e847fcd2c79553

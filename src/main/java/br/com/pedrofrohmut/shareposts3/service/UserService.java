@@ -1,5 +1,10 @@
 package br.com.pedrofrohmut.shareposts3.service;
 
+<<<<<<< HEAD
+=======
+import br.com.pedrofrohmut.shareposts3.dao.UserDao;
+import br.com.pedrofrohmut.shareposts3.model.User;
+>>>>>>> 6d021d41efb477a267fdd500b7e847fcd2c79553
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
