@@ -111,7 +111,6 @@ public class UserController
 		
 		boolean successfulOperation = userService.create(user);
 		
-		// TODO: interaction with the data base => Add The User to the DB
 		if (successfulOperation) {
 			return ViewNames.DEV_SUCCESS;			
 		} else {
