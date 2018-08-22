@@ -28,7 +28,22 @@ public class UserController
 	{
 		this.userService = userService;
 	}
-	
+
+	public String indexOnGet()
+	{
+		return null;
+	}
+
+	public String loginOnGet()
+	{
+		return null;
+	}
+
+	public String loginOnPost()
+	{
+		return null;
+	}
+
 	@GetMapping(RequestMappings.USER_REGISTER)
 	public String registerOnGet(Model model)
 	{
@@ -84,10 +99,8 @@ public class UserController
 		}
 	}
 
-	@GetMapping("user/login")
-	public String loginOnGet() // TODO: implement it
+	public String logoutOnPost()
 	{
-		log.info(">>> USER LOGIN METHOD CALLED!");
-		return "user/login";
+		return null;
 	}
 }

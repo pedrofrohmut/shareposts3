@@ -4,10 +4,11 @@ import br.com.pedrofrohmut.shareposts3.model.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDao
+public interface UserDao
 {
-    public boolean create(User user)
-    {
-        return true;
-    }
+    User findUserByEmail(String email);
+
+    User findUserByName(String name);
+
+    boolean create(User user);
 }

@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController
 {
     @GetMapping(RequestMappings.HOME_INDEX)
-    public String index()
+    public String indexOnGet()
     {
         log.info(">>> INDEX METHOD CALLED!");
         return ViewNames.HOME_INDEX;
     }
 
     @GetMapping(RequestMappings.HOME_ABOUT)
-    public String about()
+    public String aboutOnGet()
     {
         log.info(">>> ABOUT METHOD CALLED!");
         return ViewNames.HOME_ABOUT;
