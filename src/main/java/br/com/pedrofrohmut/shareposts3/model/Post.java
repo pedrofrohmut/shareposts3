@@ -7,6 +7,7 @@ import lombok.ToString;
 // Lombok
 @Getter @Setter @ToString
 
+// TODO: add bean validation
 public class Post
 {
     private int id;

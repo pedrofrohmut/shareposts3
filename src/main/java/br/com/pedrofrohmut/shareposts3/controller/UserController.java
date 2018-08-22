@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,54 +27,46 @@ public class UserController
 		this.userService = userService;
 	}
 
+	@GetMapping(RequestMappings.USER_INDEX)
 	public String indexOnGet()
 	{
-		return null;
+        log.info(">>> USER INDEX ON GET METHOD CALLED!");
+		// TODO
+		return RequestMappings.REDIRECT_POST_INDEX;
 	}
 
+	@GetMapping(RequestMappings.USER_LOGIN)
 	public String loginOnGet()
 	{
-		return null;
+        log.info(">>> USER LOGIN ON GET METHOD CALLED!");
+		// TODO
+		return ViewNames.USER_LOGIN;
 	}
 
+	@PostMapping(RequestMappings.USER_LOGIN)
 	public String loginOnPost()
 	{
-		return null;
+        log.info(">>> USER LOGIN ON POST METHOD CALLED!");
+		// TODO
+		return RequestMappings.REDIRECT_POST_INDEX;
 	}
 
 	@GetMapping(RequestMappings.USER_REGISTER)
 	public String registerOnGet(Model model)
 	{
-		log.info(">>> USER REGISTER METHOD CALLED!");
+		log.info(">>> USER REGISTER ON GET METHOD CALLED!");
 		model.addAttribute("user", new User());
 		return ViewNames.USER_REGISTER;
 	}
 	
 	@PostMapping(RequestMappings.USER_REGISTER)
-	public String registerOnPost(
-	        @Valid @ModelAttribute User user,
-			BindingResult result,
-			Model model
-		)
+	public String registerOnPost(@Valid @ModelAttribute User user, BindingResult result, Model model)
 	{
-		log.info(">>> USER REGISTER METHOD CALLED!");
+		log.info(">>> USER REGISTER ON POST METHOD CALLED!");
 		log.info("User - ModelAttribute :: " + user);
 
 		if (result.hasErrors()) {
-
-		    log.info(""); log.info("### ERRORS ###");
-            for (FieldError f : result.getFieldErrors()) {
-                log.error("    Field Error: " + f.getDefaultMessage());
-            }
-            log.info("### ERRORS ###"); log.info("");
-
-            log.info(""); log.info("### ERRORS - GLOBAL ###");
-            for (ObjectError objErr : result.getGlobalErrors()) {
-                log.error("    Field Error: " + objErr.getDefaultMessage());
-            }
-            log.info("### ERRORS - GLOBAL ###"); log.info("");
-
-            return ViewNames.USER_REGISTER;
+			return ViewNames.USER_REGISTER;
         }
 		
 		// Trim Strings
@@ -86,21 +76,24 @@ public class UserController
 		user.setPassword( user.getPassword().trim() );
 		user.setConfirmPassword( user.getConfirmPassword().trim() );
 
-
 		boolean successfulOperation = userService.create(user);
 		
 		if (successfulOperation) {
             // TODO: value pulled from a messages file + i18n
             // TODO: make it a Flash Message and redirect to login page
 		    model.addAttribute("message", "User successfully registered");
-			return ViewNames.USER_REGISTER;
+			return ViewNames.USER_LOGIN;
 		} else {
+            model.addAttribute("message", "Error: User was not registered");
 			return ViewNames.DEV_FAILURE;
 		}
 	}
 
+	@PostMapping(RequestMappings.USER_LOGOUT)
 	public String logoutOnPost()
 	{
-		return null;
+        log.info(">>> USER LOGOUT ON POST METHOD CALLED!");
+		// TODO
+		return RequestMappings.REDIRECT_HOME_INDEX;
 	}
 }
