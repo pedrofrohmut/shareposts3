@@ -2,6 +2,7 @@ package br.com.pedrofrohmut.shareposts3.controller;
 
 import br.com.pedrofrohmut.shareposts3.model.User;
 import br.com.pedrofrohmut.shareposts3.service.UserService;
+import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
@@ -80,11 +81,10 @@ public class UserController
 		
 		if (successfulOperation) {
             // TODO: value pulled from a messages file + i18n
-            // TODO: make it a Flash Message and redirect to login page
-		    model.addAttribute("message", "User successfully registered");
+		    model.addAttribute(AttributeNames.MESSAGE, "User successfully registered");
 			return ViewNames.USER_LOGIN;
 		} else {
-            model.addAttribute("message", "Error: User was not registered");
+            model.addAttribute(AttributeNames.MESSAGE, "Error: User was not registered");
 			return ViewNames.DEV_FAILURE;
 		}
 	}

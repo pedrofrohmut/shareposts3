@@ -6,37 +6,48 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// TODO: impl all methods
 @Service
 public class PostServiceImpl implements PostService
 {
     @Override
-    public List<Post> getPosts() {
+    public List<Post> getPosts()
+    {
+        // TODO:
         return null;
     }
 
     @Override
-    public boolean create(Post post) {
+    public boolean create(Post post)
+    {
+        // TODO:
         return false;
     }
 
     @Override
-    public Post findPostById(int id) {
+    public Post findPostById(int id)
+    {
+        // TODO:
         return null;
     }
 
     @Override
-    public boolean update(Post post) {
+    public boolean update(Post post)
+    {
+        // TODO:
         return false;
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id)
+    {
+        // TODO:
         return false;
     }
 
     @Override
-    public boolean delete(Post post) {
+    public boolean delete(Post post)
+    {
+        // TODO:
         return false;
     }
 }

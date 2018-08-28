@@ -7,6 +7,10 @@
 <th:block th:include="fragments/navbar :: navbar"/>
 
 <div class="container">
+    <div class="alert alert-danger"
+         th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
+         th:if="${not #strings.isEmpty(message)}"/>
+
     <h1 class="display-1 text-center">Failure!!!</h1>
 </div>
 

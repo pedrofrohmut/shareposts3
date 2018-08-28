@@ -9,7 +9,11 @@
 <div class="container">
 	<div class="row">
 	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
-            <div class="alert alert-success" th:text="${message}" th:if="${not #strings.isEmpty(message)}"></div>
+            <div class="alert alert-success" th:text="${message}" th:if="${not #strings.isEmpty(message)}"/>
+
+			<div class="alert alert-success"
+                 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
+                 th:if="${not #strings.isEmpty(message)}"/>
 
 	        <h2 class="text-center mb-2">Join Us</h2>
 	        <p class="text-center my-5">Please fill up this form to register as a user and be a part of

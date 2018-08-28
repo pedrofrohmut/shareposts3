@@ -10,7 +10,9 @@
 	<div class="row">
 	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
 
-			<!-- TODO: add container for ModelAttribute "message" -->
+			<div class="alert alert-success"
+				 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
+				 th:if="${not #strings.isEmpty(message)}"/>
 
 	        <h2 class="text-center">Welcome Back</h2>
 	        <p class="mb-5 mt-4 text-center">Please fill in your credentials to log in</p>

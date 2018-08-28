@@ -23,3 +23,11 @@ CREATE TABLE shareposts.post (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
+
+/*FIX: server time zone defference when try to connect*/
+SELECT @@system_time_zone;
+SELECT @@time_zone;
+SET GLOBAL time_zone='-3:00';
+
+TRUNCATE TABLE shareposts.user;
+TRUNCATE TABLE shareposts.post;
