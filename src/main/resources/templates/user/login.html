@@ -10,24 +10,47 @@
 	<div class="row">
 	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
 
+            <!-- TODO: create an "inc" called header-messages for error and success message all over the app -->
+
+            <!-- Default Messages -->
 			<div class="alert alert-success"
 				 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
 				 th:if="${not #strings.isEmpty(message)}"/>
 
+            <!-- Error Messages -->
+            <div class="alert alert-danger"
+                 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).ERROR_MESSAGE}__}"
+                 th:if="${not #strings.isEmpty(errorMessage)}"/>
+
 	        <h2 class="text-center">Welcome Back</h2>
 	        <p class="mb-5 mt-4 text-center">Please fill in your credentials to log in</p>
 	
-	        <form action="" method="POST">
+	        <form action="#" method="POST"
+                  th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_LOGIN}__}"
+                  th:object="${user}">
+
+                <!-- Global Errors -->
+                <!--<div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">-->
+                <!--<p th:each="err : ${#fields.errors('global')}" th:text="${err}"-->
+                   <!--class="text-danger">Input is incorrect</p>-->
+                <!--</div>-->
+
 	            <div class="form-group my-4">
-	                <label class="required sr-only">E-mail</label>
-	                <input type="email" name="email" class="form-control" placeholder="E-mail (required)">
-	                <div class="invalid-feedback"></div>
+	                <input type="email" name="email" class="form-control"
+                           placeholder="E-mail (required)"
+                           th:classappend="${#fields.hasErrors('name')} ? is-invalid"/>
+
+                    <div class="error-message" th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}">email error message</div>
 	            </div>
 	
 	            <div class="form-group my-4">
-	                <label class="required sr-only">Password</label>
-	                <input type="password" name="password" class="form-control" placeholder="Password (required)">
-	                <div class="invalid-feedback"></div>
+	                <input type="password" name="password" class="form-control"
+                           placeholder="Password (required)"
+                           th:classappend="${#fields.hasErrors('password')} ? is-invalid">
+
+                    <div class="error-message" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}">password error message</div>
 	            </div>
 	
 	            <div class="row">

@@ -22,8 +22,15 @@ public class UserServiceImpl implements UserService
     @Override
     public User findUserByEmail(String email)
     {
-        // TODO: impl
-        return null;
+        log.info(">>> USER_SERVICE findUserByEmail METHOD CALLED!");
+
+        User authUser = userDao.findUserByEmail(email);
+
+        if (authUser == null) {
+            return null;
+        } else {
+            return authUser;
+        }
     }
 
     @Override

@@ -26,6 +26,8 @@ public class UserDaoImpl implements UserDao
     @Override
     public User findUserByEmail(String email)
     {
+        log.info(">>> USER_DAO findUserByEmail METHOD CALLED!");
+
         SqlParameterSource params = new MapSqlParameterSource("EMAIL", email);
 
         String sql =
@@ -39,12 +41,18 @@ public class UserDaoImpl implements UserDao
 
         User user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
 
-        return user;
+        if (user == null) {
+            return null;
+        } else {
+            return user;
+        }
     }
 
     @Override
     public User findUserByName(String name)
     {
+        log.info(">>> USER_DAO findUserByName METHOD CALLED!");
+
         SqlParameterSource params = new MapSqlParameterSource("NAME", name);
 
         String sql =
@@ -58,7 +66,11 @@ public class UserDaoImpl implements UserDao
 
         User user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
 
-        return user;
+        if (user == null) {
+            return null;
+        } else {
+            return user;
+        }
     }
 
     @Override
@@ -76,9 +88,11 @@ public class UserDaoImpl implements UserDao
         int affectedRowsNum = this.namedParameterJdbcTemplate.update(sql, params);
 
         if (affectedRowsNum == 1) {
+            log.info(">>> 1 AFFECTED ROW");
             log.info(">>> USER CREATE RETURNS TRUE");
             return true;
         } else {
+            log.info(">>> NUMBER OF AFFECTED ROWS IS DIFFERENT THAN 1");
             log.info(">>> USER CREATE RETURNS FALSE");
             return false;
         }
