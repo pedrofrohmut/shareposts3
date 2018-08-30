@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 // lombok
 @Getter @Setter @ToString
-public class LoginForm
+public class UserLoginForm
 {
     @NotBlank(message = "* E-mail is required and cannot be blank")
     private String email;

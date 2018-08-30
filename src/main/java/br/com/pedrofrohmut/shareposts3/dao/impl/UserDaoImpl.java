@@ -5,6 +5,8 @@ import br.com.pedrofrohmut.shareposts3.model.User;
 import br.com.pedrofrohmut.shareposts3.util.DBNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -39,13 +41,20 @@ public class UserDaoImpl implements UserDao
                 " WHERE " +
                     DBNames.USER_EMAIL + " = :EMAIL";
 
-        User user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
-
-        if (user == null) {
+        User user = null;
+        try {
+            user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
+        } catch (IncorrectResultSizeDataAccessException e) {
+            log.warn("the query does not return exactly one row, or does not return exactly one column in that row. " +
+                    "MSG: " + e.getMessage());
             return null;
-        } else {
-            return user;
+        } catch (DataAccessException e) {
+            log.warn("the query fails. MSG: " + e.getMessage());
+            return null;
         }
+
+        log.info("    >>  User: " + user);
+        return user;
     }
 
     @Override
@@ -64,13 +73,20 @@ public class UserDaoImpl implements UserDao
                 " WHERE " +
                     DBNames.USER_NAME + " = :NAME";
 
-        User user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
-
-        if (user == null) {
+        User user = null;
+        try {
+            user = this.namedParameterJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
+        } catch (IncorrectResultSizeDataAccessException e) {
+            log.warn("the query does not return exactly one row, or does not return exactly one column in that row. " +
+                    "MSG: " + e.getMessage());
             return null;
-        } else {
-            return user;
+        } catch (DataAccessException e) {
+            log.warn("the query fails. MSG: " + e.getMessage());
+            return null;
         }
+
+        log.info("    >>  User: " + user);
+        return user;
     }
 
     @Override

@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
                 message = "* The Password and Confirm Password did not match. Please check it again."
         )
 })
-public class RegisterForm
+public class UserRegisterForm
 {
 	@NotBlank(message = "* Name is required and cannot be blank")
 	private String name;

@@ -5,8 +5,8 @@ import br.com.pedrofrohmut.shareposts3.service.UserService;
 import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
-import br.com.pedrofrohmut.shareposts3.validation.user.LoginForm;
-import br.com.pedrofrohmut.shareposts3.validation.user.RegisterForm;
+import br.com.pedrofrohmut.shareposts3.validation.user.UserLoginForm;
+import br.com.pedrofrohmut.shareposts3.validation.user.UserRegisterForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,32 +45,38 @@ public class UserController
 	        @RequestParam(name = AttributeNames.MESSAGE, required = false) String message, Model model)
 	{
         log.info(">>> USER LOGIN ON GET METHOD CALLED!");
-		model.addAttribute(AttributeNames.USER_OBJ, new User());
+		model.addAttribute(AttributeNames.USER_LOGIN_FORM, new UserLoginForm());
 		model.addAttribute(AttributeNames.MESSAGE, message);
 		return ViewNames.USER_LOGIN;
 	}
 
 	@PostMapping(RequestMappings.USER_LOGIN)
-	public String loginOnPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, Model model)
+	public String loginOnPost(
+	        final @Valid @ModelAttribute UserLoginForm userLoginForm,
+            final BindingResult result,
+            final Model model
+        )
 	{
         log.info(">>> USER LOGIN ON POST METHOD CALLED!");
 
 		if (result.hasErrors()) {
+            log.error("\n\n    >>  HAS ERRORS ON USER LOGIN FORM << \n\n");
 		    for (FieldError field : result.getFieldErrors()) {
 		        log.error("    Field Error: " + field.getDefaultMessage());
             }
+            log.error("\n\n");
 
 		    return ViewNames.USER_LOGIN;
         }
 
-        User authUser = userService.findUserByEmail(loginForm.getEmail());
+        User authUser = userService.findUserByEmail(userLoginForm.getEmail());
 
 		if (authUser == null) {
 		    model.addAttribute(AttributeNames.ERROR_MESSAGE, "No user with the provided e-mail was found.");
 		    return ViewNames.USER_LOGIN;
         }
 
-        if (authUser.getPassword().equals(loginForm.getPassword())) {
+        if ( !authUser.getPassword().equals(userLoginForm.getPassword()) ) {
             model.addAttribute(AttributeNames.ERROR_MESSAGE, "Wrong password, try again.");
             return ViewNames.USER_LOGIN;
         }
@@ -82,25 +88,35 @@ public class UserController
 	public String registerOnGet(Model model)
 	{
 		log.info(">>> USER REGISTER ON GET METHOD CALLED!");
-		model.addAttribute(AttributeNames.USER_OBJ, new RegisterForm());
+		model.addAttribute(AttributeNames.USER_REGISTER_FORM, new UserRegisterForm());
 		return ViewNames.USER_REGISTER;
 	}
 	
 	@PostMapping(RequestMappings.USER_REGISTER)
-	public String registerOnPost(@Valid @ModelAttribute RegisterForm registerForm, BindingResult result,
-                                 RedirectAttributes redirectAttr, Model model)
+	public String registerOnPost(
+	        final @Valid @ModelAttribute UserRegisterForm userRegisterForm,
+            final BindingResult result,
+            final Model model,
+            final RedirectAttributes redirectAttr
+        )
 	{
 		log.info(">>> USER REGISTER ON POST METHOD CALLED!");
-		log.info("User - ModelAttribute :: " + registerForm);
+		log.info("User - ModelAttribute :: " + userRegisterForm);
 
 		if (result.hasErrors()) {
+		    log.error("\n\n    >>  HAS ERRORS ON USER REGISTER FORM << \n\n");
+		    for (FieldError f : result.getFieldErrors()) {
+		        log.error("    > field error: " + f.getDefaultMessage());
+            }
+		    log.error("\n\n");
+
 			return ViewNames.USER_REGISTER;
         }
 
         User user = new User();
-		user.setName(registerForm.getName());
-		user.setEmail(registerForm.getEmail());
-		user.setPassword(registerForm.getPassword());
+		user.setName(userRegisterForm.getName());
+		user.setEmail(userRegisterForm.getEmail());
+		user.setPassword(userRegisterForm.getPassword());
 
 		boolean successfulOperation = userService.create(user);
 		

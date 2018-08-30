@@ -27,32 +27,29 @@
 	
 	        <form action="#" method="POST"
                   th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_LOGIN}__}"
-                  th:object="${user}">
+                  th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).USER_LOGIN_FORM}__}">
 
-                <!-- Global Errors -->
-                <!--<div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">-->
-                <!--<p th:each="err : ${#fields.errors('global')}" th:text="${err}"-->
-                   <!--class="text-danger">Input is incorrect</p>-->
-                <!--</div>-->
 
-	            <div class="form-group my-4">
-	                <input type="email" name="email" class="form-control"
-                           placeholder="E-mail (required)"
-                           th:classappend="${#fields.hasErrors('name')} ? is-invalid"/>
+				<!-- E-mail -->
+				<div class="form-group my-4">
+					<input type="text" class="form-control" th:field="*{email}"
+						   placeholder="E-mail (required)"
+						   th:classappend="${#fields.hasErrors('email')} ? is-invalid"/>
 
-                    <div class="error-message" th:if="${#fields.hasErrors('email')}"
-                         th:errors="*{email}">email error message</div>
-	            </div>
-	
-	            <div class="form-group my-4">
-	                <input type="password" name="password" class="form-control"
-                           placeholder="Password (required)"
-                           th:classappend="${#fields.hasErrors('password')} ? is-invalid">
+					<div class="error-message" th:if="${#fields.hasErrors('email')}"
+						 th:errors="*{email}">email error message</div>
+				</div>
 
-                    <div class="error-message" th:if="${#fields.hasErrors('password')}"
-                         th:errors="*{password}">password error message</div>
-	            </div>
-	
+				<!-- Password -->
+				<div class="form-group my-4">
+					<input type="password" class="form-control" th:field="*{password}"
+						   placeholder="Password (required)"
+						   th:classappend="${#fields.hasErrors('password')} ? is-invalid"/>
+
+					<div class="error-message" th:if="${#fields.hasErrors('password')}"
+						 th:errors="*{password}">password error message</div>
+				</div>
+
 	            <div class="row">
 	                <div class="col-md-6 col-sm-12 ml-auto">
 	                    <div class="form-check mb-2">
