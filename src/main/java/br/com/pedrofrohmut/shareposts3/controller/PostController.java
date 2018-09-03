@@ -1,23 +1,31 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
+import br.com.pedrofrohmut.shareposts3.model.User;
+import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
+@SessionAttributes(AttributeNames.SESSION_USER_LOGGED_IN)
 public class PostController
 {
+    // ## Mapping Methods ##
     @GetMapping(RequestMappings.POST_INDEX)
-    public String indexOnGet()
+    public String indexOnGet(HttpSession session)
     {
         log.info(">>> POST INDEX ON GET METHOD CALLED!");
-        // TODO
+
+        User sessionLoggedInUser = (User) session.getAttribute(AttributeNames.SESSION_USER_LOGGED_IN);
+        log.info("    >> Session User Logged IN: " + sessionLoggedInUser);
+
+        // TODO: load posts list + add to model
+
         return ViewNames.POST_INDEX;
     }
 

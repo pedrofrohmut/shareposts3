@@ -13,26 +13,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class UserController 
 {
+	// ## Fields ##
 	private final UserService userService;
-	
+
+	// ## Constructor ##
 	@Autowired
 	public UserController(UserService userService)
 	{
 		this.userService = userService;
 	}
 
+	// ## Mapping Methods ##
 	@GetMapping(RequestMappings.USER_INDEX)
 	public String indexOnGet()
 	{
@@ -52,10 +53,11 @@ public class UserController
 
 	@PostMapping(RequestMappings.USER_LOGIN)
 	public String loginOnPost(
-	        final @Valid @ModelAttribute UserLoginForm userLoginForm,
-            final BindingResult result,
-            final Model model
-        )
+			final @Valid @ModelAttribute UserLoginForm userLoginForm,
+			final BindingResult result,
+			final Model model,
+			final HttpSession session
+		)
 	{
         log.info(">>> USER LOGIN ON POST METHOD CALLED!");
 
@@ -72,14 +74,19 @@ public class UserController
         User authUser = userService.findUserByEmail(userLoginForm.getEmail());
 
 		if (authUser == null) {
+			// TODO: message value to messages file + i18n
 		    model.addAttribute(AttributeNames.ERROR_MESSAGE, "No user with the provided e-mail was found.");
 		    return ViewNames.USER_LOGIN;
         }
 
         if ( !authUser.getPassword().equals(userLoginForm.getPassword()) ) {
+			// TODO: message value to messages file + i18n
             model.addAttribute(AttributeNames.ERROR_MESSAGE, "Wrong password, try again.");
             return ViewNames.USER_LOGIN;
         }
+
+        log.info("    >> Auth User: " + authUser);
+		session.setAttribute(AttributeNames.SESSION_USER_LOGGED_IN, authUser);
 
 		return RequestMappings.REDIRECT_POST_INDEX;
 	}
@@ -97,7 +104,7 @@ public class UserController
 	        final @Valid @ModelAttribute UserRegisterForm userRegisterForm,
             final BindingResult result,
             final Model model,
-            final RedirectAttributes redirectAttr
+            final RedirectAttributes redirectAttributes
         )
 	{
 		log.info(">>> USER REGISTER ON POST METHOD CALLED!");
@@ -121,10 +128,11 @@ public class UserController
 		boolean successfulOperation = userService.create(user);
 		
 		if (successfulOperation) {
-            // TODO: value pulled from a messages file + i18n
-            redirectAttr.addAttribute(AttributeNames.MESSAGE, "User successfully registered");
+            // TODO: message value to messages file + i18n
+            redirectAttributes.addAttribute(AttributeNames.MESSAGE, "User successfully registered");
 			return RequestMappings.REDIRECT_USER_LOGIN;
 		} else {
+			// TODO: message value to messages file + i18n
             model.addAttribute(AttributeNames.MESSAGE, "Error: User was not registered");
 			return ViewNames.DEV_FAILURE;
 		}
