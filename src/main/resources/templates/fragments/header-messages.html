@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="header-messages">
+
+<!-- Default Messages -->
+<div class="alert alert-success"
+     th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
+     th:if="${not #strings.isEmpty(__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__)}"></div>
+
+<!-- Error Messages -->
+<div class="alert alert-danger"
+     th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).ERROR_MESSAGE}__}"
+     th:if="${not #strings.isEmpty(__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).ERROR_MESSAGE}__)}"></div>
+
+</body>
+</html>

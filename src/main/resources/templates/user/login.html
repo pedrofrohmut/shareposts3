@@ -10,17 +10,7 @@
 	<div class="row">
 	    <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
 
-            <!-- TODO: create an "inc" called header-messages for error and success message all over the app -->
-
-            <!-- Default Messages -->
-			<div class="alert alert-success"
-				 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).MESSAGE}__}"
-				 th:if="${not #strings.isEmpty(message)}"/>
-
-            <!-- Error Messages -->
-            <div class="alert alert-danger"
-                 th:text="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).ERROR_MESSAGE}__}"
-                 th:if="${not #strings.isEmpty(errorMessage)}"/>
+            <th:block th:include="fragments/header-messages :: header-messages"/>
 
 	        <h2 class="text-center">Welcome Back</h2>
 	        <p class="mb-5 mt-4 text-center">Please fill in your credentials to log in</p>
