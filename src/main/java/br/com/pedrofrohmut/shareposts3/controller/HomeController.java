@@ -1,5 +1,6 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
+import br.com.pedrofrohmut.shareposts3.model.User;
 import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
@@ -18,10 +19,14 @@ public class HomeController
     {
         log.info(">>> INDEX METHOD CALLED!");
 
-        log.info("  >> Session User Logged In: " +
-                session.getAttribute(AttributeNames.SESSION_USER_LOGGED_IN));
+        User sessionUser = (User) session.getAttribute(AttributeNames.SESSION_USER_LOGGED_IN);
+        log.info("  >> Session User Logged In: " + sessionUser);
 
-        return ViewNames.HOME_INDEX;
+        if (sessionUser != null && sessionUser.getId() >= 1) {
+            return RequestMappings.REDIRECT_POST_INDEX;
+        } else {
+            return ViewNames.HOME_INDEX;
+        }
     }
 
     @GetMapping(RequestMappings.HOME_ABOUT)

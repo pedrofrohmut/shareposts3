@@ -28,16 +28,20 @@
 			<div th:if="${session.sessionUserLoggedIn?.id >= 1}">
 				<ul class="navbar-nav navbar-right">
 					<li class="nav-item">
+						<span class="nav-link" th:text="${session.sessionUserLoggedIn.name}">User Name</span>
+					</li>
+
+					<li class="nav-item">
 						<a class="nav-link" href="#"
 						   th:href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_PROFILE}__}">
-							<i class="fa fa-user-plus"></i> Profile
+							<i class="fa fa-user"></i> Profile
 						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" href="#"
 						   th:href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_LOGOUT}__}">
-							<i class="fa fa-sign-in" aria-hidden="true"></i> Log out
+							<i class="fa fa-sign-out" aria-hidden="true"></i> Log out
 						</a>
 					</li>
 				</ul>
