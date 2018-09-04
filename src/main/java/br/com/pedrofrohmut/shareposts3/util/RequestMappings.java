@@ -15,6 +15,7 @@ public final class RequestMappings
     public static final String USER_INDEX = "/user/index";
     public static final String USER_LOGOUT = "/user/logout";
     public static final String REDIRECT_USER_LOGIN = "redirect:" + USER_LOGIN;
+    public static final String USER_PROFILE = "/user/profile";
 
     // ## Post Controller ##
     public static final String POST_INDEX = "/post/index";

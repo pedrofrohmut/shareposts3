@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
-@SessionAttributes(AttributeNames.SESSION_USER_LOGGED_IN)
 public class PostController
 {
     // ## Mapping Methods ##

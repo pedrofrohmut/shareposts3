@@ -1,19 +1,26 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
+import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Controller
 public class HomeController
 {
     @GetMapping(RequestMappings.HOME_INDEX)
-    public String indexOnGet()
+    public String indexOnGet(HttpSession session)
     {
         log.info(">>> INDEX METHOD CALLED!");
+
+        log.info("  >> Session User Logged In: " +
+                session.getAttribute(AttributeNames.SESSION_USER_LOGGED_IN));
+
         return ViewNames.HOME_INDEX;
     }
 

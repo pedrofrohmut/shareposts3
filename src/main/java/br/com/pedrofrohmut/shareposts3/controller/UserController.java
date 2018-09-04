@@ -138,11 +138,11 @@ public class UserController
 		}
 	}
 
-	@PostMapping(RequestMappings.USER_LOGOUT)
-	public String logoutOnPost()
+	@GetMapping(RequestMappings.USER_LOGOUT)
+	public String logoutOnGet(HttpSession session)
 	{
         log.info(">>> USER LOGOUT ON POST METHOD CALLED!");
-		// TODO
+        session.invalidate();
 		return RequestMappings.REDIRECT_HOME_INDEX;
 	}
 }
