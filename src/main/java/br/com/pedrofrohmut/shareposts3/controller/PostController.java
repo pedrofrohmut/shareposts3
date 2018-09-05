@@ -7,19 +7,20 @@ import br.com.pedrofrohmut.shareposts3.util.ModelAttributes;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.SessionAttributes;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
-import br.com.pedrofrohmut.shareposts3.validation.user.PostRegisterForm;
+import br.com.pedrofrohmut.shareposts3.validation.user.PostAddForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
+//TODO: Control Access in all methods
 @Slf4j
 @Controller
 public class PostController
@@ -54,19 +55,47 @@ public class PostController
     }
 
     @GetMapping(RequestMappings.POST_ADD)
-    public String addOnGet(Model model)
+    public String addOnGet(HttpSession session, Model model)
     {
         log.info(">>> POST ADD ON GET METHOD CALLED!");
-        model.addAttribute(ModelAttributes.POST_ADD_FORM, new PostRegisterForm());
+
+        User sessionUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
+        // TODO: redirect on User Not Logged In
+        PostAddForm postAddForm = new PostAddForm();
+        postAddForm.setUserId(sessionUser.getId());
+        model.addAttribute(ModelAttributes.POST_ADD_FORM, postAddForm);
+
         return ViewNames.POST_ADD;
     }
 
     @PostMapping(RequestMappings.POST_ADD)
-    public String addOnPost()
+    public String addOnPost(final @Valid @ModelAttribute PostAddForm postAddForm, final BindingResult result)
     {
         log.info(">>> POST ADD ON POST METHOD CALLED!");
-        // TODO
-        return RequestMappings.REDIRECT_POST_INDEX;
+
+        log.info("    >> post add form: " + postAddForm);
+
+        if (result.hasErrors()) {
+            log.error("\n\n    >>  HAS ERRORS ON USER REGISTER FORM << \n\n");
+            for (FieldError f : result.getFieldErrors()) {
+                log.error("    > field error: " + f.getDefaultMessage());
+            }
+            log.error("\n\n");
+
+            return ViewNames.POST_ADD;
+        } else {
+            User user = new User();
+            user.setId(postAddForm.getUserId());
+
+            Post post = new Post();
+            post.setTitle(postAddForm.getTitle());
+            post.setBody(postAddForm.getBody());
+            post.setUser(user);
+
+            postService.create(post);
+
+            return RequestMappings.REDIRECT_POST_INDEX;
+        }
     }
 
     @GetMapping(RequestMappings.POST_SHOW + "/{id}")

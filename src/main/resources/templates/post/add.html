@@ -25,6 +25,8 @@
               th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_ADD}__}"
               th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).POST_ADD_FORM}__}">
 
+            <input type="hidden" th:field="*{userId}">
+
             <div class="form-group">
                 <label>Title: <sup>*</sup></label>
                 <input type="text" class="form-control" th:field="*{title}"

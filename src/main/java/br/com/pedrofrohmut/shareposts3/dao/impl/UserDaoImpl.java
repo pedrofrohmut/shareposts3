@@ -101,9 +101,9 @@ public class UserDaoImpl implements UserDao
                 "   :name, :email, :password " +
                 " )";
 
-        int affectedRowsNum = this.namedParameterJdbcTemplate.update(sql, params);
+        int affectedRowsCount = this.namedParameterJdbcTemplate.update(sql, params);
 
-        if (affectedRowsNum == 1) {
+        if (affectedRowsCount == 1) {
             log.info(">>> 1 AFFECTED ROW");
             log.info(">>> USER CREATE RETURNS TRUE");
             return true;

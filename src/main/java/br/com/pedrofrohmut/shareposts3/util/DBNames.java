@@ -16,6 +16,6 @@ public final class DBNames
     public static final String POST_BODY = "body";
     public static final String POST_CREATED_AT = "created_at";
 
-    public static final String TABLE_POST = "post";
-    public static final String TABLE_USER = "user";
+    public static final String TABLE_POST = "shareposts.post";
+    public static final String TABLE_USER = "shareposts.user";
 }

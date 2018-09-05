@@ -3,12 +3,16 @@ package br.com.pedrofrohmut.shareposts3.dao.impl;
 import br.com.pedrofrohmut.shareposts3.dao.PostDao;
 import br.com.pedrofrohmut.shareposts3.model.Post;
 import br.com.pedrofrohmut.shareposts3.util.DBNames;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Slf4j
 @Repository
 public class PostDaoImpl implements PostDao
 {
@@ -41,8 +45,26 @@ public class PostDaoImpl implements PostDao
     @Override
     public boolean create(Post post)
     {
-        // TODO:
-        return false;
+        SqlParameterSource params = new BeanPropertySqlParameterSource(post);
+
+        String sql =
+                " INSERT INTO " + DBNames.TABLE_POST + " ( " +
+                    DBNames.POST_USER_ID + ", " + DBNames.POST_TITLE + ", " + DBNames.POST_BODY +
+                " ) VALUES ( " +
+                "   :user.id, :title, :body " +
+                " ) ";
+
+        int affectedRowsCount = this.namedParameterJdbcTemplate.update(sql, params);
+
+        if (affectedRowsCount == 1) {
+            log.info(">>> 1 AFFECTED ROW");
+            log.info(">>> USER CREATE RETURNS TRUE");
+            return true;
+        } else {
+            log.info(">>> NUMBER OF AFFECTED ROWS IS DIFFERENT THAN 1");
+            log.info(">>> USER CREATE RETURNS FALSE");
+            return false;
+        }
     }
 
     @Override

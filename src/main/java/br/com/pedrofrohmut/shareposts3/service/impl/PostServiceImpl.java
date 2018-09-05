@@ -31,8 +31,9 @@ public class PostServiceImpl implements PostService
     @Override
     public boolean create(Post post)
     {
-        // TODO:
-        return false;
+        log.info(">>> POST_SERVICE CREATE METHOD CALLED!");
+        boolean postCreated = postDao.create(post);
+        return postCreated;
     }
 
     @Override
