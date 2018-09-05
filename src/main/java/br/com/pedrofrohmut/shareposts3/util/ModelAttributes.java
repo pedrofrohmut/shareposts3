@@ -1,6 +1,6 @@
 package br.com.pedrofrohmut.shareposts3.util;
 
-public final class AttributeNames
+public final class ModelAttributes
 {
     // ## messages ##
     public static final String MESSAGE = "message";
@@ -10,6 +10,6 @@ public final class AttributeNames
     public static final String USER_LOGIN_FORM = "userLoginForm";
     public static final String USER_REGISTER_FORM = "userRegisterForm";
 
-    // ## session ##
-    public static final String SESSION_USER_LOGGED_IN = "sessionUserLoggedIn";
+    // ## posts ##
+    public static final String POST_LIST_ALL = "postListAll";
 }

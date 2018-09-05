@@ -1,8 +1,8 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
 import br.com.pedrofrohmut.shareposts3.model.User;
-import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
+import br.com.pedrofrohmut.shareposts3.util.SessionAttributes;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class HomeController
     {
         log.info(">>> INDEX METHOD CALLED!");
 
-        User sessionUser = (User) session.getAttribute(AttributeNames.SESSION_USER_LOGGED_IN);
+        User sessionUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
         log.info("  >> Session User Logged In: " + sessionUser);
 
         if (sessionUser != null && sessionUser.getId() >= 1) {

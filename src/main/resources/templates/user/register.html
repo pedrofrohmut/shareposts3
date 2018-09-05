@@ -18,7 +18,7 @@
 	
 	        <form action="#"
                   th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).USER_REGISTER}__}"
-                  th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.AttributeNames).USER_REGISTER_FORM}__}"
+                  th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).USER_REGISTER_FORM}__}"
                   method="POST">
 
 
@@ -53,7 +53,7 @@
 
                     <div th:if="${#fields.hasErrors('global')}">
                         <div th:each="err : ${#fields.errors('global')}" th:text="${err}"
-                             th:if="${#strings.containsIgnoreCase(err, 'e-mail')}" class="error-message"/>
+							 th:if="${#strings.containsIgnoreCase(err, 'e-mail')}" class="error-message"></div>
                     </div>
 				</div>
 
@@ -78,7 +78,7 @@
 
                     <div th:if="${#fields.hasErrors('global')}">
                         <div th:each="err : ${#fields.errors('global')}" th:text="${err}"
-                             th:if="${#strings.containsIgnoreCase(err, 'password')}" class="error-message"/>
+							 th:if="${#strings.containsIgnoreCase(err, 'password')}" class="error-message"></div>
                     </div>
 	            </div>
 	

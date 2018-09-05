@@ -2,8 +2,9 @@ package br.com.pedrofrohmut.shareposts3.controller;
 
 import br.com.pedrofrohmut.shareposts3.model.User;
 import br.com.pedrofrohmut.shareposts3.service.UserService;
-import br.com.pedrofrohmut.shareposts3.util.AttributeNames;
+import br.com.pedrofrohmut.shareposts3.util.ModelAttributes;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
+import br.com.pedrofrohmut.shareposts3.util.SessionAttributes;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import br.com.pedrofrohmut.shareposts3.validation.user.UserLoginForm;
 import br.com.pedrofrohmut.shareposts3.validation.user.UserRegisterForm;
@@ -43,11 +44,11 @@ public class UserController
 
 	@GetMapping(RequestMappings.USER_LOGIN)
 	public String loginOnGet(
-	        @RequestParam(name = AttributeNames.MESSAGE, required = false) String message, Model model)
+			@RequestParam(name = ModelAttributes.MESSAGE, required = false) String message, Model model)
 	{
         log.info(">>> USER LOGIN ON GET METHOD CALLED!");
-		model.addAttribute(AttributeNames.USER_LOGIN_FORM, new UserLoginForm());
-		model.addAttribute(AttributeNames.MESSAGE, message);
+		model.addAttribute(ModelAttributes.USER_LOGIN_FORM, new UserLoginForm());
+		model.addAttribute(ModelAttributes.MESSAGE, message);
 		return ViewNames.USER_LOGIN;
 	}
 
@@ -75,18 +76,18 @@ public class UserController
 
 		if (authUser == null) {
 			// TODO: message value to messages file + i18n
-		    model.addAttribute(AttributeNames.ERROR_MESSAGE, "No user with the provided e-mail was found.");
+		    model.addAttribute(ModelAttributes.ERROR_MESSAGE, "No user with the provided e-mail was found.");
 		    return ViewNames.USER_LOGIN;
         }
 
         if ( !authUser.getPassword().equals(userLoginForm.getPassword()) ) {
 			// TODO: message value to messages file + i18n
-            model.addAttribute(AttributeNames.ERROR_MESSAGE, "Wrong password, try again.");
+            model.addAttribute(ModelAttributes.ERROR_MESSAGE, "Wrong password, try again.");
             return ViewNames.USER_LOGIN;
         }
 
         log.info("    >> Auth User: " + authUser);
-		session.setAttribute(AttributeNames.SESSION_USER_LOGGED_IN, authUser);
+		session.setAttribute(SessionAttributes.SESSION_USER_LOGGED_IN, authUser);
 
 		return RequestMappings.REDIRECT_POST_INDEX;
 	}
@@ -95,7 +96,7 @@ public class UserController
 	public String registerOnGet(Model model)
 	{
 		log.info(">>> USER REGISTER ON GET METHOD CALLED!");
-		model.addAttribute(AttributeNames.USER_REGISTER_FORM, new UserRegisterForm());
+		model.addAttribute(ModelAttributes.USER_REGISTER_FORM, new UserRegisterForm());
 		return ViewNames.USER_REGISTER;
 	}
 	
@@ -129,11 +130,11 @@ public class UserController
 		
 		if (successfulOperation) {
             // TODO: message value to messages file + i18n
-            redirectAttributes.addAttribute(AttributeNames.MESSAGE, "User successfully registered");
+            redirectAttributes.addAttribute(ModelAttributes.MESSAGE, "User successfully registered");
 			return RequestMappings.REDIRECT_USER_LOGIN;
 		} else {
 			// TODO: message value to messages file + i18n
-            model.addAttribute(AttributeNames.MESSAGE, "Error: User was not registered");
+            model.addAttribute(ModelAttributes.MESSAGE, "Error: User was not registered");
 			return ViewNames.DEV_FAILURE;
 		}
 	}
