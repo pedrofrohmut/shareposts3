@@ -41,11 +41,15 @@ public class PostController
         User sessionLoggedInUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
         log.info("    >> Session User Logged IN: " + sessionLoggedInUser);
 
-        // Load Posts to the View
-        List<Post> posts = postService.getPosts();
-        model.addAttribute(ModelAttributes.POST_LIST_ALL, posts);
+        if (sessionLoggedInUser == null || sessionLoggedInUser.getId() < 1) {
+            return RequestMappings.REDIRECT_HOME_INDEX;
+        } else {
+            // Load Posts to the View
+            List<Post> posts = postService.getPosts();
+            model.addAttribute(ModelAttributes.POST_LIST_ALL, posts);
 
-        return ViewNames.POST_INDEX;
+            return ViewNames.POST_INDEX;
+        }
     }
 
     @GetMapping(RequestMappings.POST_ADD)

@@ -17,7 +17,7 @@ public class HomeController
     @GetMapping(RequestMappings.HOME_INDEX)
     public String indexOnGet(HttpSession session)
     {
-        log.info(">>> INDEX METHOD CALLED!");
+        log.info(">>> HOME_INDEX METHOD CALLED!");
 
         User sessionUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
         log.info("  >> Session User Logged In: " + sessionUser);
@@ -32,7 +32,7 @@ public class HomeController
     @GetMapping(RequestMappings.HOME_ABOUT)
     public String aboutOnGet()
     {
-        log.info(">>> ABOUT METHOD CALLED!");
+        log.info(">>> HOME_ABOUT METHOD CALLED!");
         return ViewNames.HOME_ABOUT;
     }
 }
