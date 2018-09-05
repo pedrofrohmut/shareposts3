@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -34,21 +33,17 @@ public class PostController
 
     // ## Mapping Methods ##
     @GetMapping(RequestMappings.POST_INDEX)
-    public String indexOnGet(HttpSession session, Model model)
+    public String indexOnGet(final HttpSession session, final Model model)
     {
         log.info(">>> POST INDEX ON GET METHOD CALLED!");
 
+        // Get current logged in user
         User sessionLoggedInUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
         log.info("    >> Session User Logged IN: " + sessionLoggedInUser);
 
-        // TODO: load posts list + add to model
+        // Load Posts to the View
         List<Post> posts = postService.getPosts();
-
-        if (posts != null) {
-            model.addAttribute(ModelAttributes.POST_LIST_ALL, posts);
-        } else {
-            model.addAttribute(ModelAttributes.POST_LIST_ALL, new ArrayList<Post>());
-        }
+        model.addAttribute(ModelAttributes.POST_LIST_ALL, posts);
 
         return ViewNames.POST_INDEX;
     }

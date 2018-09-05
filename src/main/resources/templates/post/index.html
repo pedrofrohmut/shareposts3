@@ -8,6 +8,40 @@
 
 <div class="container">
     <h1 class="display-1 text-center">Post Index</h1>
+
+    <div class="row mb-5">
+        <div class="col-sm-6">
+            <h1>Posts Feed</h1>
+        </div>
+        <div class="col-sm-6">
+            <a href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_ADD}__}"
+               class="btn btn-primary pull-right">
+                   <i class="fa fa-pencil"></i> Add Post
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-11 col-sm-12"
+             th:each="post : ${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).POST_LIST_ALL}__}">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${post.title}">Post Title</h4>
+
+                    <p class="card-text py-2 text-justify" th:text="${post.body}">Post Body</p>
+
+                    <a href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_SHOW}__}/${post.id}"
+                       class="btn btn-info btn-sm">
+                           <i class="fa fa-file-text-o pr-1"></i> Read More
+                    </a>
+
+                    <p class="pull-right text-secondary font-weight-light">Written by {User Name} on {Created At}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <th:block th:include="fragments/footer :: footer"/>
