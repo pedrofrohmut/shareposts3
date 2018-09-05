@@ -7,6 +7,7 @@ import br.com.pedrofrohmut.shareposts3.util.ModelAttributes;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.SessionAttributes;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
+import br.com.pedrofrohmut.shareposts3.validation.user.PostRegisterForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,10 +54,10 @@ public class PostController
     }
 
     @GetMapping(RequestMappings.POST_ADD)
-    public String addOnGet()
+    public String addOnGet(Model model)
     {
         log.info(">>> POST ADD ON GET METHOD CALLED!");
-        // TODO
+        model.addAttribute(ModelAttributes.POST_ADD_FORM, new PostRegisterForm());
         return ViewNames.POST_ADD;
     }
 
@@ -68,7 +69,7 @@ public class PostController
         return RequestMappings.REDIRECT_POST_INDEX;
     }
 
-    @GetMapping(RequestMappings.POST_SHOW)
+    @GetMapping(RequestMappings.POST_SHOW + "/{id}")
     public String showOnGet(@PathVariable int id)
     {
         log.info(">>> POST SHOW ON GET METHOD CALLED!");
@@ -76,7 +77,7 @@ public class PostController
         return ViewNames.POST_SHOW;
     }
 
-    @GetMapping(RequestMappings.POST_EDIT)
+    @GetMapping(RequestMappings.POST_EDIT + "/{id}")
     public String editOnGet(@PathVariable int id)
     {
         log.info(">>> POST EDIT ON GET METHOD CALLED!");

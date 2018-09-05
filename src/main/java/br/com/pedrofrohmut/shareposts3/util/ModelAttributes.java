@@ -12,4 +12,7 @@ public final class ModelAttributes
 
     // ## posts ##
     public static final String POST_LIST_ALL = "postListAll";
+
+    // ## post forms ##
+    public static final String POST_ADD_FORM = "postAddForm";
 }

@@ -20,8 +20,8 @@ public final class RequestMappings
     // ## Post Controller ##
     public static final String POST_INDEX = "/post/index";
     public static final String POST_ADD = "/post/add";
-    public static final String POST_SHOW = "/post/show/{id}";
-    public static final String POST_EDIT = "/post/edit/{id}";
+    public static final String POST_SHOW = "/post/show";
+    public static final String POST_EDIT = "/post/edit";
     public static final String POST_DELETE = "/post/delete";
     public static final String REDIRECT_POST_INDEX = "redirect:" + POST_INDEX;
 }

@@ -14,8 +14,8 @@
             <h1>Posts Feed</h1>
         </div>
         <div class="col-sm-6">
-            <a href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_ADD}__}"
-               class="btn btn-primary pull-right">
+            <a th:href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_ADD}__}"
+               class="btn btn-primary pull-right" href="#">
                    <i class="fa fa-pencil"></i> Add Post
             </a>
         </div>
@@ -31,7 +31,7 @@
 
                     <p class="card-text py-2 text-justify" th:text="${post.body}">Post Body</p>
 
-                    <a href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_SHOW}__}/${post.id}"
+                    <a th:href="@{|__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_SHOW}__/${post.id}|}"
                        class="btn btn-info btn-sm">
                            <i class="fa fa-file-text-o pr-1"></i> Read More
                     </a>
