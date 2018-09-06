@@ -5,7 +5,10 @@ import br.com.pedrofrohmut.shareposts3.model.Post;
 import br.com.pedrofrohmut.shareposts3.util.DBNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -77,7 +80,40 @@ public class PostDaoImpl implements PostDao
     public Post findPostById(int id)
     {
         // TODO:
-        return null;
+        SqlParameterSource params = new MapSqlParameterSource("ID", id);
+
+        String sql =
+                " SELECT " +
+                    DBNames.POST_ID + ", " +
+                    DBNames.POST_USER_ID + ", " +
+                    DBNames.POST_TITLE + ", " +
+                    DBNames.POST_BODY + ", " +
+                    DBNames.POST_CREATED_AT + ", " +
+                    DBNames.USER_NAME + ", " +
+                    DBNames.USER_EMAIL +
+                " FROM " +
+                    DBNames.TABLE_POST +
+                " INNER JOIN " +
+                    DBNames.TABLE_USER +
+                " ON " +
+                    DBNames.POST_USER_ID + " = " + DBNames.USER_ID +
+                " WHERE " +
+                    DBNames.POST_ID + " = :ID ";
+
+        Post post = null;
+        try {
+            post = this.namedParameterJdbcTemplate.queryForObject(sql, params, new PostRowMapper());
+        } catch (IncorrectResultSizeDataAccessException e) {
+            log.warn("the query does not return exactly one row, or does not return exactly one column in that row. " +
+                    "MSG: " + e.getMessage());
+            return null;
+        } catch (DataAccessException e) {
+            log.warn("the query fails. MSG: " + e.getMessage());
+            return null;
+        }
+
+        log.info("    >> Post: " + post);
+        return post;
     }
 
     @Override

@@ -39,8 +39,8 @@ public class PostServiceImpl implements PostService
     @Override
     public Post findPostById(int id)
     {
-        // TODO:
-        return null;
+        log.info(">>> POST_SERVICE CREATE METHOD CALLED!");
+        return postDao.findPostById(id);
     }
 
     @Override

@@ -36,9 +36,17 @@ public class PostController
 
     // ## Mapping Methods ##
     @GetMapping(RequestMappings.POST_INDEX)
-    public String indexOnGet(final HttpSession session, final Model model)
+    public String indexOnGet(
+            @RequestParam(name = ModelAttributes.ERROR_MESSAGE, required = false) String errorMessage,
+            final HttpSession session,
+            final Model model
+        )
     {
         log.info(">>> POST INDEX ON GET METHOD CALLED!");
+
+        if (errorMessage != null && !errorMessage.equals("")) {
+            model.addAttribute(ModelAttributes.ERROR_MESSAGE, errorMessage);
+        }
 
         // Get current logged in user
         User sessionLoggedInUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
@@ -106,11 +114,25 @@ public class PostController
     }
 
     @GetMapping(RequestMappings.POST_SHOW + "/{id}")
-    public String showOnGet(@PathVariable int id)
+    public String showOnGet(
+            final @PathVariable int id,
+            final RedirectAttributes redirectAttributes,
+            final Model model
+        )
     {
         log.info(">>> POST SHOW ON GET METHOD CALLED!");
-        // TODO
-        return ViewNames.POST_SHOW;
+
+        // TODO: get the post By Id put it to the model
+        final Post post = postService.findPostById(id);
+
+        if (post == null || post.getId() < 1) {
+            redirectAttributes.addAttribute(ModelAttributes.ERROR_MESSAGE,
+                    "No post with the id passed was found.");
+            return RequestMappings.REDIRECT_POST_INDEX;
+        } else {
+            model.addAttribute(ModelAttributes.POST_SHOW, post);
+            return ViewNames.POST_SHOW;
+        }
     }
 
     @GetMapping(RequestMappings.POST_EDIT + "/{id}")
