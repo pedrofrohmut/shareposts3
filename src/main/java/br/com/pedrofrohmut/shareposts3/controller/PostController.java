@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -55,17 +56,23 @@ public class PostController
     }
 
     @GetMapping(RequestMappings.POST_ADD)
-    public String addOnGet(HttpSession session, Model model)
+    public String addOnGet(HttpSession session, RedirectAttributes redirectAttributes, Model model)
     {
         log.info(">>> POST ADD ON GET METHOD CALLED!");
 
         User sessionUser = (User) session.getAttribute(SessionAttributes.SESSION_USER_LOGGED_IN);
-        // TODO: redirect on User Not Logged In
-        PostAddForm postAddForm = new PostAddForm();
-        postAddForm.setUserId(sessionUser.getId());
-        model.addAttribute(ModelAttributes.POST_ADD_FORM, postAddForm);
 
-        return ViewNames.POST_ADD;
+        if (sessionUser == null || sessionUser.getId() < 1) {
+            redirectAttributes.addAttribute(ModelAttributes.MESSAGE,
+                    "No user is logged in the current session. Please log in to add a new post.");
+            return RequestMappings.REDIRECT_HOME_INDEX;
+        } else {
+            PostAddForm postAddForm = new PostAddForm();
+            postAddForm.setUserId(sessionUser.getId());
+            model.addAttribute(ModelAttributes.POST_ADD_FORM, postAddForm);
+
+            return ViewNames.POST_ADD;
+        }
     }
 
     @PostMapping(RequestMappings.POST_ADD)

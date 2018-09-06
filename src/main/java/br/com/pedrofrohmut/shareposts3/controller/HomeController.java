@@ -1,12 +1,15 @@
 package br.com.pedrofrohmut.shareposts3.controller;
 
 import br.com.pedrofrohmut.shareposts3.model.User;
+import br.com.pedrofrohmut.shareposts3.util.ModelAttributes;
 import br.com.pedrofrohmut.shareposts3.util.RequestMappings;
 import br.com.pedrofrohmut.shareposts3.util.SessionAttributes;
 import br.com.pedrofrohmut.shareposts3.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +18,11 @@ import javax.servlet.http.HttpSession;
 public class HomeController
 {
     @GetMapping(RequestMappings.HOME_INDEX)
-    public String indexOnGet(HttpSession session)
+    public String indexOnGet(
+            HttpSession session,
+            @RequestParam(name = ModelAttributes.MESSAGE, required = false) String message,
+            Model model
+        )
     {
         log.info(">>> HOME_INDEX METHOD CALLED!");
 
@@ -25,6 +32,7 @@ public class HomeController
         if (sessionUser != null && sessionUser.getId() >= 1) {
             return RequestMappings.REDIRECT_POST_INDEX;
         } else {
+            model.addAttribute(ModelAttributes.MESSAGE, message);
             return ViewNames.HOME_INDEX;
         }
     }

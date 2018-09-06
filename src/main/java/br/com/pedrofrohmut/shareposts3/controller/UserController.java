@@ -77,7 +77,7 @@ public class UserController
 		if (authUser == null) {
 			// TODO: message value to messages file + i18n
 		    model.addAttribute(ModelAttributes.ERROR_MESSAGE, "No user with the provided e-mail was found.");
-		    return ViewNames.USER_LOGIN;
+		    return ViewNames.USER_LOGIN.toString();
         }
 
         if ( !authUser.getPassword().equals(userLoginForm.getPassword()) ) {

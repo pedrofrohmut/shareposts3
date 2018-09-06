@@ -7,8 +7,6 @@
 <th:block th:include="fragments/navbar :: navbar"/>
 
 <div class="container">
-    <h1 class="display-1 text-center">Post Index</h1>
-
     <div class="row mb-5">
         <div class="col-sm-6">
             <h1>Posts Feed</h1>
@@ -37,7 +35,10 @@
                     </a>
 
                     <!-- TODO: Join Tables Post and User and get Footer Info -->
-                    <p class="pull-right text-secondary font-weight-light">Written by {User Name} on {Created At}</p>
+                    <p class="pull-right text-secondary font-weight-light"
+                       th:text="|Written by ${post.user.name} on ${post.createdAt}|">
+                           Written by {User Name} on {Created At}
+                    </p>
                 </div>
             </div>
 

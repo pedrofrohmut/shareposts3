@@ -19,9 +19,12 @@ public class PostRowMapper implements RowMapper<Post>
         post.setId( resultSet.getInt(DBNames.POST_ID) );
         post.setTitle( resultSet.getString(DBNames.POST_TITLE) );
         post.setBody( resultSet.getString(DBNames.POST_BODY) );
+        post.setCreatedAt( resultSet.getTimestamp(DBNames.POST_CREATED_AT) );
 
         User user = new User();
-        user.setId( resultSet.getInt(DBNames.USER_ID) );
+        user.setId( resultSet.getInt(DBNames.POST_USER_ID) );
+        user.setName( resultSet.getString(DBNames.USER_NAME) );
+        user.setEmail( resultSet.getString(DBNames.USER_EMAIL) );
 
         post.setUser(user);
 

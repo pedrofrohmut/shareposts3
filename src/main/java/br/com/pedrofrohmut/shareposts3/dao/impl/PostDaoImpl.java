@@ -27,15 +27,21 @@ public class PostDaoImpl implements PostDao
     @Override
     public List<Post> getPosts()
     {
-        // TODO: made a join table to take post info as well as user info
         String sql =
-            " SELECT " +
-                DBNames.POST_ID + ", " + DBNames.POST_USER_ID + ", " +
-                    DBNames.POST_TITLE + ", " +  DBNames.POST_BODY +
-            " FROM " +
-                DBNames.TABLE_POST +
-            " ORDER BY " +
-                DBNames.POST_CREATED_AT  + " DESC ";
+                " SELECT " +
+                    DBNames.POST_ID + ", " +
+                    DBNames.POST_USER_ID + ", " +
+                    DBNames.POST_TITLE + ", " +
+                    DBNames.POST_BODY + ", " +
+                    DBNames.POST_CREATED_AT + ", " +
+                    DBNames.USER_NAME + ", " +
+                    DBNames.USER_EMAIL +
+                " FROM " +
+                    DBNames.TABLE_POST +
+                " INNER JOIN " +
+                    DBNames.TABLE_USER +
+                " ON " +
+                    DBNames.POST_USER_ID + " = " + DBNames.USER_ID;
 
         List<Post> posts = this.namedParameterJdbcTemplate.query(sql, new PostRowMapper());
 
