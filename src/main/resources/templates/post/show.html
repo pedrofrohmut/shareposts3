@@ -9,6 +9,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-10 col-md-12 col-sm-12 mx-auto">
+
+            <a href="#" class="btn btn-secondary"
+               th:href="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_INDEX}__}">
+                   <i class="fa fa-arrow-left"></i> Back
+            </a>
+
             <div class="card-body">
                 <h4 class="card-title" th:text="${postShow.title}">Post Title</h4>
 
@@ -20,32 +26,22 @@
                 <p class="card-text pt-2 pb-4 text-justify" th:text="${postShow.body}">Post Body</p>
 
                 <div th:if="${postShow.user.id == session.sessionUserLoggedIn.id}">
-                    <button type="submit" class="btn btn-secondary">
-                        <i class="fa fa-pencil"></i> Edit
-                    </button>
+                    <form action="#" method="GET" class="pull-left"
+                          th:action="@{|__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_EDIT}__/${postShow.id}|}">
 
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-trash"></i> Delete
-                    </button>
+                        <button type="submit" class="btn btn-secondary">
+                            <i class="fa fa-pencil"></i> Edit
+                        </button>
+                    </form>
+
+                    <form action="#" method="post" class="pull-right"
+                          th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_DELETE}__}">
+
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </form>
                 </div>
-
-                <div th:unless="${postShow.user.id == session.sessionUserLoggedIn.id}">
-
-                </div>
-
-                <!--<?php if (SessionManager::isCurrentUserThepostShowOwner($postShow)) : ?>-->
-                <!--<form action="<?=URL_ROOT?>/postShow/edit/<?=$postShow->getId()?>" method="GET" class="pull-left">-->
-                    <!--<button type="submit" class="btn btn-secondary">-->
-                <!--<i class="fa fa-pencil"></i> Edit-->
-                <!--</button>-->
-                <!--</form>-->
-
-                <!--<form action="<?=URL_ROOT?>/postShow/delete/<?=$postShow->getId()?>" method="postShow" class="pull-right">-->
-                    <!--<button type="submit" class="btn btn-danger">-->
-                        <!--<i class="fa fa-trash"></i> Delete-->
-                    <!--</button>-->
-                <!--</form>-->
-                <!--<?php endif; ?>-->
             </div>
         </div>
     </div>
