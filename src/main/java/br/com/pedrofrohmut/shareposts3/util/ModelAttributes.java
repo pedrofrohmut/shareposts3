@@ -15,5 +15,7 @@ public final class ModelAttributes
 
     // ## post forms ##
     public static final String POST_ADD_FORM = "postAddForm";
-    public static final String POST_SHOW = "postShow";
+    public static final String POST_SHOW_FORM = "postShowForm";
+    public static final String POST_EDIT_FORM = "postEditForm";
+    public static final String POST_DELETE_FORM = "postDeleteForm";
 }

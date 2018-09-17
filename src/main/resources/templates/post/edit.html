@@ -7,7 +7,47 @@
 <th:block th:include="fragments/navbar :: navbar"/>
 
 <div class="container">
-    <h1 class="display-1 text-center">Post Edit</h1>
+    <a href="#" class="btn btn-secondary"
+       th:href="@{|__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_SHOW}__/${postEditForm.id}|}">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+    </a>
+
+    <div class="card card-body bg-light mt-5">
+
+        <th:block th:include="fragments/header-messages :: header-messages"/>
+
+        <h2>Add Post</h2>
+        <p>Create a post with this form</p>
+
+        <form action="#" method="POST"
+              th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_EDIT}__}"
+              th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).POST_EDIT_FORM}__}">
+
+            <input type="hidden" th:field="*{id}">
+
+            <input type="hidden" th:field="*{userId}">
+
+            <div class="form-group">
+                <label>Title: <sup>*</sup></label>
+                <input type="text" class="form-control" th:field="*{title}"
+                       placeholder="Post Title" th:classappend="${#fields.hasErrors('title')} ? is-invalid">
+                <div class="error-message" th:if="${#fields.hasErrors('title')}"
+                     th:errors="*{title}">Title Error Message</div>
+            </div>
+
+            <div class="form-group">
+                <label>Body: <sup>*</sup></label>
+                <textarea cols="30" rows="10" class="form-control" th:field="*{body}"
+                          th:classappend="${#fields.hasErrors('body')}" placeholder="Post Body Goes Here"></textarea>
+                <div class="error-message" th:if="${#fields.hasErrors('body')}"
+                     th:errors="*{body}">Body Error Message</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-send"></i> Submit New Post
+            </button>
+        </form>
+    </div>
 </div>
 
 <th:block th:include="fragments/footer :: footer"/>

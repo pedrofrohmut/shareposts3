@@ -21,6 +21,7 @@ public class HomeController
     public String indexOnGet(
             HttpSession session,
             @RequestParam(name = ModelAttributes.MESSAGE, required = false) String message,
+            @RequestParam(name = ModelAttributes.ERROR_MESSAGE, required = false) String errorMessage,
             Model model
         )
     {
@@ -33,6 +34,7 @@ public class HomeController
             return RequestMappings.REDIRECT_POST_INDEX;
         } else {
             model.addAttribute(ModelAttributes.MESSAGE, message);
+            model.addAttribute(ModelAttributes.ERROR_MESSAGE, errorMessage);
             return ViewNames.HOME_INDEX;
         }
     }

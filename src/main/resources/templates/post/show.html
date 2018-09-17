@@ -16,18 +16,21 @@
             </a>
 
             <div class="card-body">
-                <h4 class="card-title" th:text="${postShow.title}">Post Title</h4>
+
+                <th:block th:include="fragments/header-messages :: header-messages"/>
+
+                <h4 class="card-title" th:text="${postShowForm.title}">Post Title</h4>
 
                 <p class="text-secondary font-weight-light"
-                   th:text="|Written by ${postShow.user.name} on ${postShow.createdAt}|">
+                   th:text="|Written by ${postShowForm.user.name} on ${postShowForm.createdAt}|">
                     Written by {User Name} on {Post: Created At}
                 </p>
 
-                <p class="card-text pt-2 pb-4 text-justify" th:text="${postShow.body}">Post Body</p>
+                <p class="card-text pt-2 pb-4 text-justify" th:text="${postShowForm.body}">Post Body</p>
 
-                <div th:if="${postShow.user.id == session.sessionUserLoggedIn.id}">
+                <div th:if="${postShowForm.user.id == session.sessionUserLoggedIn.id}">
                     <form action="#" method="GET" class="pull-left"
-                          th:action="@{|__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_EDIT}__/${postShow.id}|}">
+                          th:action="@{|__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_EDIT}__/${postShowForm.id}|}">
 
                         <button type="submit" class="btn btn-secondary">
                             <i class="fa fa-pencil"></i> Edit
@@ -35,7 +38,10 @@
                     </form>
 
                     <form action="#" method="post" class="pull-right"
-                          th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_DELETE}__}">
+                          th:action="@{__${T(br.com.pedrofrohmut.shareposts3.util.RequestMappings).POST_DELETE}__}"
+                          th:object="${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).POST_DELETE_FORM}__}">
+
+                        <input type="hidden" th:field="*{id}">
 
                         <button type="submit" class="btn btn-danger">
                             <i class="fa fa-trash"></i> Delete

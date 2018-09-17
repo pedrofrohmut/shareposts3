@@ -54,14 +54,14 @@ public class PostDaoImpl implements PostDao
     @Override
     public boolean create(Post post)
     {
-        SqlParameterSource params = new BeanPropertySqlParameterSource(post);
-
         String sql =
                 " INSERT INTO " + DBNames.TABLE_POST + " ( " +
                     DBNames.POST_USER_ID + ", " + DBNames.POST_TITLE + ", " + DBNames.POST_BODY +
                 " ) VALUES ( " +
                 "   :user.id, :title, :body " +
                 " ) ";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(post);
 
         int affectedRowsCount = this.namedParameterJdbcTemplate.update(sql, params);
 
@@ -79,9 +79,6 @@ public class PostDaoImpl implements PostDao
     @Override
     public Post findPostById(int id)
     {
-        // TODO:
-        SqlParameterSource params = new MapSqlParameterSource("ID", id);
-
         String sql =
                 " SELECT " +
                     DBNames.POST_ID + ", " +
@@ -99,6 +96,8 @@ public class PostDaoImpl implements PostDao
                     DBNames.POST_USER_ID + " = " + DBNames.USER_ID +
                 " WHERE " +
                     DBNames.POST_ID + " = :ID ";
+
+        SqlParameterSource params = new MapSqlParameterSource("ID", id);
 
         Post post = null;
         try {
@@ -119,21 +118,57 @@ public class PostDaoImpl implements PostDao
     @Override
     public boolean update(Post post)
     {
-        // TODO:
-        return false;
+        String sql =
+                " UPDATE " +
+                    DBNames.TABLE_POST +
+                " SET " +
+                    DBNames.POST_TITLE + " = :title, " +
+                    DBNames.POST_BODY + " = :body " +
+                " WHERE " +
+                    DBNames.POST_ID + " = :id";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(post);
+
+        int affectedRowsCount = this.namedParameterJdbcTemplate.update(sql, params);
+
+        if (affectedRowsCount == 1) {
+            log.info(">>> 1 AFFECTED ROW");
+            log.info(">>> USER UPDATE RETURNS TRUE");
+            return true;
+        } else {
+            log.info(">>> NUMBER OF AFFECTED ROWS IS DIFFERENT THAN 1");
+            log.info(">>> USER UPDATE RETURNS FALSE");
+            return false;
+        }
     }
 
     @Override
     public boolean delete(int id)
     {
-        // TODO:
-        return false;
+        String sql =
+                " DELETE FROM " +
+                    DBNames.TABLE_POST +
+                " WHERE " +
+                    DBNames.POST_ID + " = :ID ";
+
+        SqlParameterSource params = new MapSqlParameterSource("ID", id);
+
+        int affectedRowsCount = this.namedParameterJdbcTemplate.update(sql, params);
+
+        if (affectedRowsCount == 1) {
+            log.info(">>> 1 AFFECTED ROW");
+            log.info(">>> USER DELETE RETURNS TRUE");
+            return true;
+        } else {
+            log.info(">>> NUMBER OF AFFECTED ROWS IS DIFFERENT THAN 1");
+            log.info(">>> USER DELETE RETURNS FALSE");
+            return false;
+        }
     }
 
     @Override
     public boolean delete(Post post)
     {
-        // TODO:
-        return false;
+        return this.delete(post.getId());
     }
 }

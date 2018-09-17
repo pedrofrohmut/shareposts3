@@ -25,7 +25,8 @@ public class PostServiceImpl implements PostService
     public List<Post> getPosts()
     {
         log.info(">>> POST_SERVICE GET_POSTS METHOD CALLED!");
-        return postDao.getPosts();
+        List<Post> allPosts = postDao.getPosts();
+        return allPosts;
     }
 
     @Override
@@ -40,27 +41,31 @@ public class PostServiceImpl implements PostService
     public Post findPostById(int id)
     {
         log.info(">>> POST_SERVICE CREATE METHOD CALLED!");
-        return postDao.findPostById(id);
+        Post postFound = postDao.findPostById(id);
+        return postFound;
     }
 
     @Override
     public boolean update(Post post)
     {
-        // TODO:
-        return false;
+        log.info(">>> POST_SERVICE UPDATE METHOD CALLED!");
+        boolean postUpdated = postDao.update(post);
+        return postUpdated;
     }
 
     @Override
     public boolean delete(int id)
     {
-        // TODO:
-        return false;
+        log.info(">>> POST_SERVICE DELETE(ID) METHOD CALLED!");
+        boolean postDeleted = postDao.delete(id);
+        return postDeleted;
     }
 
     @Override
     public boolean delete(Post post)
     {
-        // TODO:
-        return false;
+        log.info(">>> POST_SERVICE DELETE(POST) METHOD CALLED!");
+        boolean postDeleted = postDao.delete(post);
+        return postDeleted;
     }
 }

@@ -20,6 +20,10 @@
     </div>
 
     <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-11 col-sm-12">
+            <th:block th:include="fragments/header-messages :: header-messages"/>
+        </div>
+
         <div class="col-lg-10 col-md-11 col-sm-12"
              th:each="post : ${__${T(br.com.pedrofrohmut.shareposts3.util.ModelAttributes).POST_LIST_ALL}__}">
 

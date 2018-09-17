@@ -1,4 +1,4 @@
-package br.com.pedrofrohmut.shareposts3.validation.user;
+package br.com.pedrofrohmut.shareposts3.validation.user.post;
 
 import lombok.Getter;
 import lombok.Setter;
