@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
-//TODO: Control Access in all methods
 @Slf4j
 @Controller
 public class PostController

@@ -36,8 +36,15 @@ public class UserServiceImpl implements UserService
     @Override
     public User findUserByName(String name)
     {
-        // TODO: impl
-        return null;
+        log.info(">>> USER_SERVICE findUserByName METHOD CALLED!");
+
+        User authUser = userDao.findUserByName(name);
+
+        if (authUser == null) {
+            return null;
+        } else {
+            return authUser;
+        }
     }
 
     @Override
